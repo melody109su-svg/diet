@@ -539,6 +539,112 @@ body {
 }
 .toast.show { opacity: 1; }
 
+/* ── 月回顧按鈕 ── */
+.review-gen-btn {
+  width: 100%; padding: 10px; background: var(--ink); color: var(--cream);
+  border: none; border-radius: var(--radius-sm); font-size: 12px;
+  font-family: 'Noto Sans TC', sans-serif; cursor: pointer; font-weight: 500;
+  letter-spacing: 0.06em; transition: background 0.15s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.review-gen-btn:hover { background: var(--ink-soft); }
+
+/* ── 雜誌 Overlay ── */
+.review-overlay {
+  display: none; position: fixed; inset: 0;
+  background: #0E0C0A; z-index: 200; overflow-y: auto;
+}
+.review-overlay.open { display: block; }
+.review-close-btn {
+  position: fixed; top: 20px; right: 24px; z-index: 201;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%; width: 38px; height: 38px; cursor: pointer;
+  color: rgba(255,255,255,0.7); font-size: 16px;
+  display: flex; align-items: center; justify-content: center; transition: background 0.15s;
+}
+.review-close-btn:hover { background: rgba(255,255,255,0.18); }
+
+/* ── 雜誌內容 ── */
+.magazine {
+  max-width: 860px; margin: 0 auto; padding: 64px 40px 100px;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+/* Loading */
+.review-loading { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; gap: 18px; }
+.review-spinner { width: 34px; height: 34px; border: 2px solid rgba(255,255,255,0.08); border-top-color: #D4B896; border-radius: 50%; animation: spin 0.85s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.review-loading-text { font-size: 13px; color: rgba(255,255,255,0.4); letter-spacing: 0.1em; }
+
+/* Cover */
+.mag-cover { padding-bottom: 52px; margin-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.mag-overline { font-size: 10px; letter-spacing: 0.28em; color: rgba(255,255,255,0.35); text-transform: uppercase; margin-bottom: 18px; }
+.mag-month-en { font-family: 'Noto Serif TC', serif; font-size: clamp(54px,9vw,96px); font-weight: 700; color: white; line-height: 0.92; letter-spacing: -0.02em; }
+.mag-month-zh { font-family: 'Noto Serif TC', serif; font-size: clamp(22px,3.5vw,36px); font-weight: 300; color: rgba(255,255,255,0.5); margin-top: 10px; letter-spacing: 0.08em; }
+.mag-tagline { font-family: 'Noto Serif TC', serif; font-style: italic; font-size: 18px; color: rgba(255,255,255,0.55); margin-top: 24px; max-width: 440px; line-height: 1.6; }
+.mag-cover-stats { display: flex; gap: 36px; margin-top: 36px; flex-wrap: wrap; }
+.cover-stat-v { font-size: 30px; font-weight: 300; color: white; letter-spacing: -0.02em; line-height: 1; }
+.cover-stat-l { font-size: 9px; color: rgba(255,255,255,0.35); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; }
+
+/* Sections */
+.mag-section { margin-bottom: 52px; }
+.mag-section-label { font-size: 9px; letter-spacing: 0.24em; color: rgba(255,255,255,0.3); text-transform: uppercase; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.mag-headline { font-family: 'Noto Serif TC', serif; font-size: clamp(18px,2.8vw,26px); font-weight: 500; color: white; line-height: 1.5; margin-bottom: 16px; }
+.mag-body { font-size: 14px; color: rgba(255,255,255,0.58); line-height: 1.9; font-weight: 300; }
+.mag-body p { margin-bottom: 12px; }
+.mag-pull {
+  font-family: 'Noto Serif TC', serif; font-style: italic;
+  font-size: clamp(18px,2.4vw,22px); color: rgba(255,255,255,0.78); line-height: 1.55;
+  border-left: 3px solid #D4B896; padding-left: 22px; margin: 32px 0;
+}
+
+/* Photo Grid */
+.mag-photo-grid { display: grid; gap: 10px; margin: 24px 0; }
+.mag-photo-grid.g1 { grid-template-columns: 1fr; }
+.mag-photo-grid.g2 { grid-template-columns: 1fr 1fr; }
+.mag-photo-grid.g3 { grid-template-columns: 1fr 1fr 1fr; }
+.mag-photo-grid.g4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+.mag-photo-grid.g5 { grid-template-columns: 2fr 1fr 1fr; grid-template-rows: auto auto; }
+.mag-photo-grid.g6plus { grid-template-columns: repeat(4,1fr); }
+.mag-photo-item { position: relative; overflow: hidden; border-radius: 8px; background: rgba(255,255,255,0.03); }
+.mag-photo-item.feature { grid-column: span 2; grid-row: span 2; }
+.mag-photo-img { width: 100%; height: 180px; object-fit: cover; display: block; border-radius: 8px; transition: transform 0.3s; }
+.mag-photo-item:hover .mag-photo-img { transform: scale(1.03); }
+.mag-photo-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 22px 12px 10px; background: linear-gradient(transparent, rgba(0,0,0,0.72)); font-size: 10px; color: rgba(255,255,255,0.72); border-radius: 0 0 8px 8px; }
+
+/* Nutrition Spread */
+.mag-nut-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.07); border-radius: 10px; overflow: hidden; margin: 20px 0; }
+.mag-nut-cell { background: rgba(255,255,255,0.03); padding: 22px 16px; text-align: center; }
+.mag-nut-v { font-family: 'Noto Serif TC', serif; font-size: 34px; font-weight: 300; color: white; letter-spacing: -0.02em; }
+.mag-nut-unit { font-size: 11px; color: rgba(255,255,255,0.35); }
+.mag-nut-l { font-size: 9px; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 6px; }
+
+/* Mood Timeline */
+.mag-mood-row { display: flex; flex-wrap: wrap; gap: 2px; margin: 18px 0; }
+.mood-pip { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 26px; padding: 6px 2px; }
+.mood-pip-emoji { font-size: 15px; }
+.mood-pip-day { font-size: 8px; color: rgba(255,255,255,0.28); margin-top: 3px; }
+
+/* Top Foods */
+.mag-food-item { display: flex; align-items: center; gap: 16px; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.mag-food-rank { font-family: 'Noto Serif TC', serif; font-size: 24px; color: rgba(255,255,255,0.12); font-weight: 700; width: 30px; flex-shrink: 0; }
+.mag-food-img { width: 54px; height: 54px; border-radius: 7px; object-fit: cover; flex-shrink: 0; background: rgba(255,255,255,0.05); }
+.mag-food-name { font-size: 14px; color: white; font-weight: 500; margin-bottom: 3px; }
+.mag-food-meta { font-size: 11px; color: rgba(255,255,255,0.38); }
+.mag-food-cal { font-size: 20px; font-weight: 300; color: rgba(255,255,255,0.55); margin-left: auto; white-space: nowrap; }
+.mag-food-cal span { font-size: 10px; color: rgba(255,255,255,0.25); }
+
+/* Divider */
+.mag-divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 48px 0; }
+
+@media (max-width: 600px) {
+  .magazine { padding: 48px 20px 80px; }
+  .mag-photo-grid.g3, .mag-photo-grid.g4, .mag-photo-grid.g5, .mag-photo-grid.g6plus { grid-template-columns: 1fr 1fr; }
+  .mag-nut-grid { grid-template-columns: repeat(2,1fr); }
+  .mag-cover-stats { gap: 24px; }
+  .review-close-btn { top: 12px; right: 14px; }
+}
+
 /* ── 響應式手機版滑出側欄 ── */
 @media (max-width: 768px) {
   .menu-toggle-btn { display: flex; }
@@ -597,6 +703,11 @@ body {
     <div class="mood-summary">
       <div class="stats-title">本月心情</div>
       <div id="mood-bars"></div>
+    </div>
+
+    <div style="padding: 16px 20px; border-top: 1px solid var(--border);">
+      <div class="stats-title">月回顧</div>
+      <button class="review-gen-btn" id="review-btn" onclick="openReview()">✦ 生成雜誌月回顧</button>
     </div>
   </aside>
 
@@ -668,6 +779,17 @@ body {
     <div class="panel-footer">
       <button class="btn-cancel" onclick="closePanel()">取消</button>
       <button class="btn-save" onclick="saveEntry()">儲存 ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── 雜誌月回顧 Overlay ── -->
+<div class="review-overlay" id="review-overlay">
+  <button class="review-close-btn" onclick="closeReview()">✕</button>
+  <div class="magazine" id="magazine-content">
+    <div class="review-loading" id="review-loading">
+      <div class="review-spinner"></div>
+      <div class="review-loading-text">AI 正在撰寫你的雜誌月回顧…</div>
     </div>
   </div>
 </div>
@@ -1010,6 +1132,180 @@ function saveEntry() {
   store[key] = { meals: saveMeals, mood: panelMood, note: document.getElementById('note-area').value, weight: w ? Number(w) : null };
   try { saveStore(store); closePanel(); renderCalendar(); showToast('已儲存！✓'); } 
   catch(e) { alert('儲存失敗，空間已滿，請清除部分舊照片。'); }
+}
+
+// ── 雜誌月回顧 ──
+const MONTHS_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const MONTHS_ZH = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+
+function closeReview() { document.getElementById('review-overlay').classList.remove('open'); }
+
+async function openReview() {
+  const key = getApiKey();
+  if (!key) { showToast('請先輸入 Gemini API Key'); return; }
+
+  // 收集本月資料
+  const store = loadStore();
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+  const entries = [];
+  for (let d = 1; d <= daysInMonth; d++) {
+    const entry = store[dateKey(viewYear, viewMonth, d)];
+    if (entry) entries.push({ day: d, ...entry });
+  }
+  if (entries.length === 0) { showToast('這個月還沒有任何記錄！'); return; }
+
+  // 開啟 overlay，顯示 loading
+  document.getElementById('review-overlay').classList.add('open');
+  document.getElementById('magazine-content').innerHTML = `
+    <div class="review-loading">
+      <div class="review-spinner"></div>
+      <div class="review-loading-text">AI 正在撰寫你的雜誌月回顧…</div>
+    </div>`;
+
+  // 統計數字
+  let totalCal = 0, totalProt = 0, totalCarb = 0, totalFat = 0, mealCount = 0;
+  const moodCount = {}, allPhotos = [], topFoodsMap = [];
+  const moodTimeline = [];
+
+  entries.forEach(e => {
+    const meals = e.meals || {};
+    MEALS_DEF.forEach(m => {
+      const meal = meals[m.id];
+      if (!meal) return;
+      if (meal.nutrition && meal.nutrition.calories) {
+        totalCal += meal.nutrition.calories || 0;
+        totalProt += meal.nutrition.protein || 0;
+        totalCarb += meal.nutrition.carbs || 0;
+        totalFat += meal.nutrition.fat || 0;
+        mealCount++;
+        topFoodsMap.push({ name: meal.nutrition.name, cal: meal.nutrition.calories || 0, mealType: m.label, day: e.day, imageData: meal.imageData || null });
+      }
+      if (meal.imageData) allPhotos.push({ src: meal.imageData, caption: meal.nutrition?.name || m.label, day: e.day, mealType: m.label });
+    });
+    if (e.mood) moodCount[e.mood] = (moodCount[e.mood] || 0) + 1;
+    moodTimeline.push({ day: e.day, mood: e.mood || '' });
+  });
+
+  const avgCal = entries.length > 0 ? Math.round(totalCal / entries.length) : 0;
+  const topFoods = [...topFoodsMap].sort((a, b) => b.cal - a.cal).slice(0, 5);
+  const dominantMood = Object.entries(moodCount).sort((a, b) => b[1] - a[1])[0]?.[0] || '';
+  const notes = entries.filter(e => e.note).map(e => `${e.day}日：${e.note}`).join('\n').slice(0, 500);
+
+  // 呼叫 Gemini 生成回顧文字
+  let narrative = null;
+  const prompt = `你是一位有溫度的生活雜誌編輯（風格類似 Kinfolk）。請根據以下這個月的生活資料，用繁體中文寫一篇雜誌風格的月回顧。
+
+資料：
+月份：${viewYear}年${MONTHS_ZH[viewMonth]}
+記錄天數：${entries.length}天
+平均每日卡路里：${avgCal} kcal
+總蛋白質：${Math.round(totalProt)}g，總碳水：${Math.round(totalCarb)}g，總脂肪：${Math.round(totalFat)}g
+主要心情：${dominantMood}
+心情分布：${Object.entries(moodCount).map(([k,v]) => k+' '+v+'次').join('、')}
+高卡路里食物Top3：${topFoods.slice(0,3).map(f => f.name+'('+f.cal+'kcal)').join('、') || '無'}
+日記節錄：${notes || '無'}
+
+請只回傳 JSON（不要 markdown），格式：
+{"theme":"這個月的主題（5字以內）","intro":"溫暖的開場白（2-3句，有畫面感）","food_insight":"飲食觀察（約80字，有溫度）","mood_insight":"心情洞察（約60字，細膩）","quote":"代表這個月的金句（25字以內，詩意）"}`;
+
+  try {
+    const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { responseMimeType: 'application/json' }
+      })
+    });
+    const json = await resp.json();
+    const raw = json.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    narrative = JSON.parse(raw.replace(/```json|```/g, '').trim());
+  } catch (e) {
+    narrative = { theme: '生活的滋味', intro: '這是屬於你的一個月，每一天都值得被記住。', food_insight: '每一餐都是生活的印記，滋養著你前行的力量。', mood_insight: '情緒的起伏是生命最真實的節奏。', quote: '好好吃飯，認真生活。' };
+  }
+
+  // 建立照片格子
+  const photoCount = allPhotos.length;
+  let gridClass = 'g1', photoHTML = '';
+  if (photoCount === 2) gridClass = 'g2';
+  else if (photoCount === 3) gridClass = 'g3';
+  else if (photoCount === 4) gridClass = 'g4';
+  else if (photoCount === 5) gridClass = 'g5';
+  else if (photoCount >= 6) gridClass = 'g6plus';
+
+  const displayPhotos = allPhotos.slice(0, 8);
+  displayPhotos.forEach((p, i) => {
+    const isFeature = photoCount === 5 && i === 0;
+    photoHTML += `<div class="mag-photo-item${isFeature ? ' feature' : ''}">
+      <img class="mag-photo-img" src="${p.src}" alt="${p.caption}" loading="lazy">
+      <div class="mag-photo-caption">${p.caption} · ${p.day}日 ${p.mealType}</div>
+    </div>`;
+  });
+
+  // 心情時間軸
+  const moodTimelineHTML = moodTimeline.map(t => `
+    <div class="mood-pip">
+      <div class="mood-pip-emoji">${t.mood ? t.mood.split(' ')[0] : '·'}</div>
+      <div class="mood-pip-day">${t.day}</div>
+    </div>`).join('');
+
+  // 最高卡路里食物清單
+  const topFoodHTML = topFoods.map((f, i) => `
+    <div class="mag-food-item">
+      <div class="mag-food-rank">${String(i+1).padStart(2,'0')}</div>
+      ${f.imageData ? `<img class="mag-food-img" src="${f.imageData}" alt="${f.name}">` : '<div class="mag-food-img"></div>'}
+      <div>
+        <div class="mag-food-name">${f.name || '未命名'}</div>
+        <div class="mag-food-meta">${f.mealType} · 第 ${f.day} 日</div>
+      </div>
+      <div class="mag-food-cal">${Math.round(f.cal)}<span> kcal</span></div>
+    </div>`).join('');
+
+  // 渲染雜誌
+  document.getElementById('magazine-content').innerHTML = `
+    <div class="mag-cover">
+      <div class="mag-overline">MY LIFE JOURNAL · ${viewYear}</div>
+      <div class="mag-month-en">${MONTHS_EN[viewMonth]}</div>
+      <div class="mag-month-zh">${MONTHS_ZH[viewMonth]}　${narrative.theme}</div>
+      <div class="mag-tagline">${narrative.intro}</div>
+      <div class="mag-cover-stats">
+        <div><div class="cover-stat-v">${entries.length}</div><div class="cover-stat-l">Days Recorded</div></div>
+        <div><div class="cover-stat-v">${avgCal}</div><div class="cover-stat-l">Avg. Calories</div></div>
+        <div><div class="cover-stat-v">${mealCount}</div><div class="cover-stat-l">Meals Logged</div></div>
+        ${Object.keys(moodCount).length ? `<div><div class="cover-stat-v">${dominantMood.split(' ')[0]}</div><div class="cover-stat-l">Top Mood</div></div>` : ''}
+      </div>
+    </div>
+
+    ${photoHTML ? `
+    <div class="mag-section">
+      <div class="mag-section-label">This Month's Table</div>
+      <div class="mag-photo-grid ${gridClass}">${photoHTML}</div>
+    </div>` : ''}
+
+    <div class="mag-section">
+      <div class="mag-section-label">Nutrition Spread</div>
+      <div class="mag-nut-grid">
+        <div class="mag-nut-cell"><div class="mag-nut-v">${avgCal}</div><div class="mag-nut-unit"> kcal</div><div class="mag-nut-l">Daily Avg</div></div>
+        <div class="mag-nut-cell"><div class="mag-nut-v">${Math.round(totalProt)}</div><div class="mag-nut-unit">g</div><div class="mag-nut-l">Protein</div></div>
+        <div class="mag-nut-cell"><div class="mag-nut-v">${Math.round(totalCarb)}</div><div class="mag-nut-unit">g</div><div class="mag-nut-l">Carbs</div></div>
+        <div class="mag-nut-cell"><div class="mag-nut-v">${Math.round(totalFat)}</div><div class="mag-nut-unit">g</div><div class="mag-nut-l">Fat</div></div>
+      </div>
+      <div class="mag-body"><p>${narrative.food_insight}</p></div>
+      <div class="mag-pull">${narrative.quote}</div>
+    </div>
+
+    ${topFoods.length ? `
+    <div class="mag-section">
+      <div class="mag-section-label">Most Indulgent This Month</div>
+      <div>${topFoodHTML}</div>
+    </div>` : ''}
+
+    <div class="mag-section">
+      <div class="mag-section-label">Mood Timeline</div>
+      <div class="mag-mood-row">${moodTimelineHTML}</div>
+      <div class="mag-body"><p>${narrative.mood_insight}</p></div>
+    </div>
+  `;
 }
 
 // ── Init ──
