@@ -65,8 +65,9 @@ body {
   inset: 0;
   background: rgba(28,26,24,0.3);
   z-index: 85;
+  pointer-events: none;
 }
-.sidebar-overlay.open { display: block; }
+.sidebar-overlay.open { display: block; pointer-events: auto; }
 
 /* ── Sidebar Header ── */
 .sidebar-header {
@@ -351,8 +352,9 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  pointer-events: none;
 }
-.entry-overlay.open { display: flex; }
+.entry-overlay.open { display: flex; pointer-events: auto; }
 
 .entry-panel {
   background: var(--warm-white);
@@ -553,8 +555,9 @@ body {
 .review-overlay {
   display: none; position: fixed; inset: 0;
   background: #0E0C0A; z-index: 200; overflow-y: auto;
+  pointer-events: none;
 }
-.review-overlay.open { display: block; }
+.review-overlay.open { display: block; pointer-events: auto; }
 .review-close-btn {
   position: fixed; top: 20px; right: 24px; z-index: 201;
   background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
@@ -861,7 +864,16 @@ function renderCalendar() {
 
     const cell = document.createElement('div');
     cell.className = 'day-cell' + (isToday ? ' today' : '') + (entry ? ' has-entry' : '');
-    cell.onclick = () => openPanel(viewYear, viewMonth, d);
+    cell.setAttribute('data-y', y);
+    cell.setAttribute('data-mo', viewMonth);
+    cell.setAttribute('data-d', d);
+    cell.addEventListener('click', function() {
+      openPanel(
+        parseInt(this.getAttribute('data-y')),
+        parseInt(this.getAttribute('data-mo')),
+        parseInt(this.getAttribute('data-d'))
+      );
+    });
 
     const numEl = document.createElement('div'); numEl.className = 'day-num'; numEl.textContent = d;
     cell.appendChild(numEl);
