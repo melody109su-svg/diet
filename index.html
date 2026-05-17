@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>我的生活日記</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root {
   --cream: #FAF7F2;
@@ -935,8 +935,15 @@ function updateSidebar() {
 }
 
 function renderWeightChart(labels, data) {
-  const canvas = document.getElementById('weightChart'); if (!canvas) return;
-  if (myWeightChart) { myWeightChart.data.labels = labels; myWeightChart.data.datasets[0].data = data; myWeightChart.update(); return; }
+  const canvas = document.getElementById('weightChart');
+  if (!canvas) return;
+  if (typeof Chart === 'undefined') return;
+  if (myWeightChart) {
+    myWeightChart.data.labels = labels;
+    myWeightChart.data.datasets[0].data = data;
+    myWeightChart.update();
+    return;
+  }
   myWeightChart = new Chart(canvas.getContext('2d'), {
     type: 'line',
     data: {
@@ -956,7 +963,7 @@ function renderWeightChart(labels, data) {
 
 function prevMonth() { viewMonth--; if (viewMonth < 0) { viewMonth = 11; viewYear--; } renderCalendar(); }
 function nextMonth() { viewMonth++; if (viewMonth > 11) { viewMonth = 0; viewYear++; } renderCalendar(); }
-function goToday() { const { y, m } = today(); viewYear = y; viewMonth = m; renderCalendar(); }
+function goToday() { const t = today(); viewYear = t.y; viewMonth = t.m; renderCalendar(); }
 
 // ── Panel 開啟核心（全面加強舊資料的容錯率） ──
 function openPanel(y, mo, d) {
@@ -1321,7 +1328,23 @@ async function openReview() {
 }
 
 // ── Init ──
-const { y, m } = today(); viewYear = y; viewMonth = m; loadApiKey(); renderCalendar();
+function init() {
+  try {
+    const todayDate = today();
+    viewYear = todayDate.y;
+    viewMonth = todayDate.m;
+    loadApiKey();
+    renderCalendar();
+  } catch(e) {
+    console.error('Init error:', e);
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 </script>
 </body>
 </html>
