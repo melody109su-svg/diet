@@ -58,15 +58,13 @@ body {
   background: var(--cream);
 }
 
-/* 【新增】手機版側欄遮罩 */
+/* 側欄遮罩 */
 .sidebar-overlay {
   display: none;
   position: fixed;
   inset: 0;
   background: rgba(28,26,24,0.3);
   z-index: 85;
-  opacity: 0;
-  transition: opacity 0.3s ease;
 }
 
 /* ── Sidebar Header ── */
@@ -76,7 +74,6 @@ body {
   position: relative;
 }
 
-/* 【新增】側欄內部的關閉按鈕（僅在手機版顯示） */
 .sidebar-close-btn {
   display: none;
   position: absolute;
@@ -200,22 +197,19 @@ body {
   z-index: 10;
 }
 
-/* 【新增】漢堡選單按鈕樣式 */
 .menu-toggle-btn {
   display: none;
   background: var(--warm-white);
   border: 1px solid var(--border);
   padding: 8px 12px;
   border-radius: var(--radius-sm);
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   color: var(--ink-soft);
   align-items: center;
   justify-content: center;
   margin-right: 12px;
-  transition: all 0.15s;
 }
-.menu-toggle-btn:hover { background: var(--accent-pale); color: var(--accent); }
 
 .month-title {
   font-family: 'Noto Serif TC', serif;
@@ -275,7 +269,7 @@ body {
 
 .day-cell {
   aspect-ratio: 1;
-  min-height: 100px;
+  min-height: 95px;
   background: var(--warm-white);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -288,7 +282,7 @@ body {
   flex-direction: column;
 }
 .day-cell:hover { border-color: var(--accent-light); box-shadow: 0 2px 12px var(--shadow); }
-.day-cell.empty { background: transparent; border-color: transparent; cursor: default; min-height: 100px; }
+.day-cell.empty { background: transparent; border-color: transparent; cursor: default; min-height: 95px; }
 .day-cell.today { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-pale); }
 .day-cell.has-entry { background: var(--warm-white); }
 .day-cell.selected { border-color: var(--accent); background: var(--accent-pale); }
@@ -376,11 +370,7 @@ body {
   background: var(--warm-white);
   border-radius: 20px 20px 0 0;
 }
-.panel-date {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 18px;
-  font-weight: 500;
-}
+.panel-date { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 500; }
 .panel-close {
   width: 32px; height: 32px;
   border: 1px solid var(--border);
@@ -394,7 +384,6 @@ body {
 .panel-close:hover { background: var(--accent-pale); color: var(--accent); }
 
 .panel-body { padding: 20px 24px; }
-
 .panel-section { margin-bottom: 20px; }
 .panel-section-title {
   font-size: 10px;
@@ -449,71 +438,41 @@ body {
 .upload-zone p { font-size: 12px; color: var(--accent); }
 
 .text-only-btn {
-  width: 100%;
-  margin-top: 6px;
-  padding: 6px;
-  background: transparent;
-  color: var(--green);
-  border: 1px solid var(--green);
-  border-radius: var(--radius-sm);
-  font-size: 11px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.15s;
+  width: 100%; margin-top: 6px; padding: 6px;
+  background: transparent; color: var(--green);
+  border: 1px solid var(--green); border-radius: var(--radius-sm);
+  font-size: 11px; cursor: pointer; font-weight: 500;
 }
 .text-only-btn:hover { background: var(--green-pale); }
 
 .photo-preview { position: relative; }
 .preview-img {
-  width: 100%;
-  max-height: 160px;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
-  display: block;
+  width: 100%; max-height: 160px; object-fit: cover;
+  border-radius: var(--radius-sm); display: block;
 }
 .remove-photo {
   position: absolute; top: 6px; right: 6px;
-  background: rgba(28,26,24,0.6);
-  border: none; border-radius: 50%;
-  width: 24px; height: 24px;
-  cursor: pointer; color: white; font-size: 13px;
+  background: rgba(28,26,24,0.6); border: none; border-radius: 50%;
+  width: 24px; height: 24px; cursor: pointer; color: white; font-size: 13px;
   display: flex; align-items: center; justify-content: center;
 }
 
 .analyze-btn {
-  width: 100%; margin-top: 8px;
-  padding: 8px;
-  background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 12px;
-  font-family: 'Noto Sans TC', sans-serif;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background 0.15s;
+  width: 100%; margin-top: 8px; padding: 8px;
+  background: var(--accent); color: white; border: none;
+  border-radius: var(--radius-sm); font-size: 12px; cursor: pointer;
+  font-weight: 500; transition: background 0.15s;
 }
 .analyze-btn:hover { background: #7A5E38; }
-.analyze-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-/* ── 營養分析盒子 ── */
 .nutrition-box {
-  margin-top: 8px;
-  background: var(--green-pale);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
+  margin-top: 8px; background: var(--green-pale);
+  border-radius: var(--radius-sm); padding: 10px 12px;
 }
 .nutrition-name-input {
-  width: 100%;
-  border: 1px solid rgba(92, 122, 92, 0.2);
-  background: var(--warm-white);
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--green);
-  outline: none;
-  padding: 4px 8px;
-  border-radius: 4px;
-  margin-bottom: 8px;
+  width: 100%; border: 1px solid rgba(92, 122, 92, 0.2);
+  background: var(--warm-white); font-size: 14px; font-weight: 500;
+  color: var(--green); outline: none; padding: 4px 8px; border-radius: 4px; margin-bottom: 8px;
 }
 .nutrition-name-input:focus { border-color: var(--green); }
 
@@ -524,36 +483,18 @@ body {
 .nut-note { font-size: 10px; color: var(--ink-muted); margin-top: 6px; line-height: 1.5; }
 
 .correction-wrap {
-  margin-top: 10px;
-  padding-top: 8px;
-  border-top: 1px dashed rgba(92, 122, 92, 0.3);
-  display: flex;
-  gap: 6px;
+  margin-top: 10px; padding-top: 8px;
+  border-top: 1px dashed rgba(92, 122, 92, 0.3); display: flex; gap: 6px;
 }
 .correction-input {
-  flex: 1;
-  padding: 6px 10px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-size: 12px;
-  font-family: 'Noto Sans TC', sans-serif;
-  outline: none;
-  background: var(--warm-white);
+  flex: 1; padding: 6px 10px; border: 1px solid var(--border);
+  border-radius: var(--radius-sm); font-size: 12px; outline: none; background: var(--warm-white);
 }
 .correction-input:focus { border-color: var(--green); }
 .btn-recalc {
-  padding: 6px 12px;
-  background: var(--green);
-  color: white;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 12px;
-  cursor: pointer;
-  font-weight: 500;
-  white-space: nowrap;
-  transition: background 0.15s;
+  padding: 6px 12px; background: var(--green); color: white; border: none;
+  border-radius: var(--radius-sm); font-size: 12px; cursor: pointer; font-weight: 500; white-space: nowrap;
 }
-.btn-recalc:hover { background: #4A634A; }
 
 .loading-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; }
 .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 1s infinite; }
@@ -562,136 +503,50 @@ body {
 @keyframes pulse { 0%,80%,100%{opacity:0.2} 40%{opacity:1} }
 .loading-text { font-size: 12px; color: var(--ink-muted); }
 
-/* Daily totals */
-.totals-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin-bottom: 20px;
-}
-.total-box {
-  background: var(--accent-pale);
-  border-radius: var(--radius-sm);
-  padding: 10px;
-  text-align: center;
-}
+.totals-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
+.total-box { background: var(--accent-pale); border-radius: var(--radius-sm); padding: 10px; text-align: center; }
 .total-v { font-size: 16px; font-weight: 500; color: var(--accent); }
 .total-l { font-size: 9px; color: var(--ink-muted); margin-top: 2px; }
 
-/* Mood picker */
+.mood-picker { display: flex; gap: 8px; flex-wrap: wrap; }
 .mood-opt {
-  border: 1px solid var(--border);
-  background: var(--cream);
-  border-radius: 999px;
-  padding: 6px 14px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: all 0.15s;
-  font-family: 'Noto Sans TC', sans-serif;
+  border: 1px solid var(--border); background: var(--cream); border-radius: 999px;
+  padding: 6px 14px; font-size: 13px; cursor: pointer; font-family: 'Noto Sans TC', sans-serif;
 }
-.mood-opt:hover { border-color: var(--accent-light); background: var(--accent-pale); }
 .mood-opt.active { background: var(--accent); color: white; border-color: var(--accent); }
 
-/* Note */
 .note-area {
-  width: 100%;
-  min-height: 80px;
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  font-family: 'Noto Sans TC', sans-serif;
-  color: var(--ink);
-  background: var(--cream);
-  resize: none;
-  outline: none;
-  line-height: 1.7;
+  width: 100%; min-height: 80px; padding: 10px 12px; border: 1px solid var(--border);
+  border-radius: var(--radius-sm); font-size: 13px; color: var(--ink); background: var(--cream); resize: none; outline: none;
 }
-.note-area:focus { border-color: var(--accent-light); }
-.note-area::placeholder { color: var(--ink-faint); }
 
 .panel-footer {
-  padding: 16px 24px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  position: sticky; bottom: 0;
-  background: var(--warm-white);
-  border-radius: 0 0 20px 20px;
+  padding: 16px 24px; border-top: 1px solid var(--border);
+  display: flex; justify-content: flex-end; gap: 10px; position: sticky; bottom: 0; background: var(--warm-white); border-radius: 0 0 20px 20px;
 }
-.btn-save {
-  padding: 9px 24px;
-  background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  font-family: 'Noto Sans TC', sans-serif;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background 0.15s;
-}
-.btn-save:hover { background: #7A5E38; }
-.btn-cancel {
-  padding: 9px 16px;
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  font-family: 'Noto Sans TC', sans-serif;
-  cursor: pointer;
-  color: var(--ink-soft);
-}
-.btn-cancel:hover { background: var(--cream); }
+.btn-save { padding: 9px 24px; background: var(--accent); color: white; border: none; border-radius: var(--radius-sm); font-size: 13px; cursor: pointer; font-weight: 500; }
+.btn-cancel { padding: 9px 16px; background: none; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; cursor: pointer; color: var(--ink-soft); }
 
-/* Toast */
 .toast {
-  position: fixed;
-  bottom: 28px; left: 50%;
-  transform: translateX(-50%);
-  background: var(--ink);
-  color: var(--cream);
-  padding: 10px 20px;
-  border-radius: 999px;
-  font-size: 13px;
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
-  z-index: 999;
-  white-space: nowrap;
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--cream);
+  padding: 10px 20px; border-radius: 999px; font-size: 13px; opacity: 0; transition: opacity 0.3s; z-index: 999;
 }
 .toast.show { opacity: 1; }
 
-/* ── 【重要核心】響應式手機版滑出式側欄 CSS ── */
+/* ── 響應式手機版滑出側欄 ── */
 @media (max-width: 768px) {
-  .menu-toggle-btn { display: flex; } /* 秀出漢堡按鈕 */
-  .sidebar-close-btn { display: block; } /* 秀出側欄內關閉按鈕 */
-
+  .menu-toggle-btn { display: flex; }
+  .sidebar-close-btn { display: block; }
   .sidebar {
-    position: fixed;
-    top: 0; left: 0; bottom: 0;
-    width: 280px;
-    transform: translateX(-100%); /* 預設完全藏在螢幕左邊外面 */
-    box-shadow: 4px 0 24px rgba(28,26,24,0.15);
+    position: fixed; top: 0; left: 0; bottom: 0; width: 280px;
+    transform: translateX(-100%); box-shadow: 4px 0 24px rgba(28,26,24,0.15);
   }
-
-  /* 當加入 .open 樣式時，側欄絲滑滑入畫面 */
-  .sidebar.open {
-    transform: translateX(0);
-  }
-
-  /* 側欄滑出時，後方的日曆背景會變暗 */
-  .sidebar-overlay.open {
-    display: block;
-    opacity: 1;
-  }
-
-  /* 讓日曆回歸手機版滿版狀態，格子不再擠壓 */
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay.open { display: block; }
   .calendar-grid { padding: 4px 12px 24px; }
   .weekday-row { padding: 12px 12px 0; }
   .calendar-header { padding: 20px 12px 16px; }
-  .day-cell { min-height: 85px; } 
+  .day-cell { min-height: 85px; }
   .day-cell.empty { min-height: 85px; }
 }
 </style>
@@ -714,10 +569,7 @@ body {
         <input type="password" class="api-input" id="api-key" placeholder="AIzaSy..." oninput="saveApiKey()" />
         <button class="api-toggle" id="api-toggle" onclick="toggleApiKey()">👁</button>
       </div>
-      <div class="api-hint">
-        用於 AI 分析食物營養。<br>
-        免費取得：<a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a>
-      </div>
+      <div class="api-hint">用於 AI 分析食物營養。<br>免費取得：<a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a></div>
     </div>
 
     <div class="storage-box">
@@ -733,9 +585,7 @@ body {
 
     <div class="weight-chart-section">
       <div class="stats-title">本月體重趨勢</div>
-      <div class="chart-container">
-        <canvas id="weightChart"></canvas>
-      </div>
+      <div class="chart-container"><canvas id="weightChart"></canvas></div>
     </div>
 
     <div class="mood-summary">
@@ -758,15 +608,9 @@ body {
     </div>
 
     <div class="weekday-row">
-      <div class="weekday-label">日</div>
-      <div class="weekday-label">一</div>
-      <div class="weekday-label">二</div>
-      <div class="weekday-label">三</div>
-      <div class="weekday-label">四</div>
-      <div class="weekday-label">五</div>
-      <div class="weekday-label">六</div>
+      <div class="weekday-label">日</div><div class="weekday-label">一</div><div class="weekday-label">二</div>
+      <div class="weekday-label">三</div><div class="weekday-label">四</div><div class="weekday-label">五</div><div class="weekday-label">六</div>
     </div>
-
     <div class="calendar-grid" id="calendar-grid"></div>
   </main>
 </div>
@@ -778,7 +622,7 @@ body {
       <button class="panel-close" onclick="closePanel()">✕</button>
     </div>
     <div class="panel-body">
-      <div class="totals-row" id="totals-row">
+      <div class="totals-row">
         <div class="total-box"><div class="total-v" id="t-cal">0</div><div class="total-l">卡路里 kcal</div></div>
         <div class="total-box"><div class="total-v" id="t-prot">0g</div><div class="total-l">蛋白質</div></div>
         <div class="total-box"><div class="total-v" id="t-carb">0g</div><div class="total-l">碳水</div></div>
@@ -844,44 +688,28 @@ function dateKey(y, m, d) { return `${y}-${pad(m+1)}-${pad(d)}`; }
 function loadStore() { try { return JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch { return {}; } }
 function saveStore(data) { localStorage.setItem(STORE_KEY, JSON.stringify(data)); }
 
-function saveApiKey() {
-  const key = document.getElementById('api-key').value.trim();
-  localStorage.setItem(API_STORE_KEY, key);
-}
-
-function loadApiKey() {
-  const savedKey = localStorage.getItem(API_STORE_KEY);
-  if (savedKey) {
-    document.getElementById('api-key').value = savedKey;
-  }
-}
+function saveApiKey() { localStorage.setItem(API_STORE_KEY, document.getElementById('api-key').value.trim()); }
+function loadApiKey() { const k = localStorage.getItem(API_STORE_KEY); if (k) document.getElementById('api-key').value = k; }
+function getApiKey() { return document.getElementById('api-key').value.trim(); }
 
 function clearAllData() {
-  if (confirm('確定要清空日記快取嗎？這將會釋放所有被舊大照片佔用的空間！(保留您的 API Key)')) {
-    localStorage.removeItem(STORE_KEY);
-    showToast('快取已完全清空！空間重置成功。');
-    renderCalendar();
+  if (confirm('確定要清空日記快取嗎？這會釋放舊相片空間！')) {
+    localStorage.removeItem(STORE_KEY); showToast('空間重置成功！'); renderCalendar();
   }
 }
 
 function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
+  const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-// 【新增】控制手機版側欄開關的 JavaScript 函數
 function toggleSidebar(open) {
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('sidebar-overlay');
-  if (open) {
-    sidebar.classList.add('open');
-    overlay.classList.add('open');
-  } else {
-    sidebar.classList.remove('open');
-    overlay.classList.remove('open');
-  }
+  const s = document.getElementById('sidebar'); const o = document.getElementById('sidebar-overlay');
+  if (open) { s.classList.add('open'); o.classList.add('open'); } 
+  else { s.classList.remove('open'); o.classList.remove('open'); }
 }
+
+function toggleApiKey() { const inp = document.getElementById('api-key'); inp.type = inp.type === 'password' ? 'text' : 'password'; }
 
 // ── Calendar ──
 function renderCalendar() {
@@ -896,87 +724,55 @@ function renderCalendar() {
   grid.innerHTML = '';
 
   for (let i = 0; i < firstDay; i++) {
-    const el = document.createElement('div');
-    el.className = 'day-cell empty';
-    grid.appendChild(el);
+    const el = document.createElement('div'); el.className = 'day-cell empty'; grid.appendChild(el);
   }
 
   for (let d = 1; d <= daysInMonth; d++) {
-    const key = dateKey(viewYear, viewMonth, d);
-    const entry = store[key];
+    const key = dateKey(viewYear, viewMonth, d); const entry = store[key];
     const isToday = viewYear === ty && viewMonth === tm && d === td;
 
     const cell = document.createElement('div');
     cell.className = 'day-cell' + (isToday ? ' today' : '') + (entry ? ' has-entry' : '');
     cell.onclick = () => openPanel(viewYear, viewMonth, d);
 
-    const numEl = document.createElement('div');
-    numEl.className = 'day-num';
-    numEl.textContent = d;
+    const numEl = document.createElement('div'); numEl.className = 'day-num'; numEl.textContent = d;
     cell.appendChild(numEl);
 
     if (entry) {
       if (entry.weight) {
-        const weightEl = document.createElement('div');
-        weightEl.className = 'day-weight-badge';
-        weightEl.textContent = entry.weight + 'k';
-        cell.appendChild(weightEl);
+        const w = document.createElement('div'); w.className = 'day-weight-badge'; w.textContent = entry.weight + 'k'; cell.appendChild(w);
       }
-
       if (entry.mood) {
-        const moodEl = document.createElement('div');
-        moodEl.className = 'day-mood';
-        moodEl.textContent = entry.mood.split(' ')[0];
-        cell.appendChild(moodEl);
+        const m = document.createElement('div'); m.className = 'day-mood'; m.textContent = entry.mood.split(' ')[0]; cell.appendChild(m);
       }
       const firstPhoto = MEALS_DEF.map(m => entry.meals?.[m.id]?.imageData).find(Boolean);
       if (firstPhoto) {
-        const img = document.createElement('img');
-        img.className = 'day-photo';
-        img.src = firstPhoto;
-        img.alt = '食物照片';
-        cell.appendChild(img);
+        const img = document.createElement('img'); img.className = 'day-photo'; img.src = firstPhoto; cell.appendChild(img);
       }
       const totalCal = MEALS_DEF.reduce((s, m) => s + (entry.meals?.[m.id]?.nutrition?.calories || 0), 0);
       if (totalCal > 0) {
-        const badge = document.createElement('div');
-        badge.className = 'day-cal-badge';
-        badge.textContent = Math.round(totalCal) + ' kcal';
-        cell.appendChild(badge);
+        const b = document.createElement('div'); b.className = 'day-cal-badge'; b.textContent = Math.round(totalCal) + ' kcal'; cell.appendChild(b);
       }
     }
-
     grid.appendChild(cell);
   }
-
   updateSidebar();
 }
 
 function updateSidebar() {
-  const store = loadStore();
-  let days = 0, totalCal = 0, totalProt = 0;
-  const moodCount = {};
-  
-  const daysLabels = [];
-  const weightData = [];
+  const store = loadStore(); let days = 0, totalCal = 0, totalProt = 0; const moodCount = {};
+  const labels = []; const weights = [];
   const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
 
   for (let d = 1; d <= daysInMonth; d++) {
-    const key = dateKey(viewYear, viewMonth, d);
-    const entry = store[key];
-    
-    daysLabels.push(`${d}日`);
-    if (entry && entry.weight) {
-      weightData.push(Number(entry.weight));
-    } else {
-      weightData.push(null);
-    }
+    const key = dateKey(viewYear, viewMonth, d); const entry = store[key];
+    labels.push(`${d}日`);
+    weights.push((entry && entry.weight) ? Number(entry.weight) : null);
 
     if (!entry) continue;
     days++;
-    const cal = MEALS_DEF.reduce((s, m) => s + (entry.meals?.[m.id]?.nutrition?.calories || 0), 0);
-    const prot = MEALS_DEF.reduce((s, m) => s + (entry.meals?.[m.id]?.nutrition?.protein || 0), 0);
-    totalCal += cal; totalProt += prot;
+    totalCal += MEALS_DEF.reduce((s, m) => s + (entry.meals?.[m.id]?.nutrition?.calories || 0), 0);
+    totalProt += MEALS_DEF.reduce((s, m) => s + (entry.meals?.[m.id]?.nutrition?.protein || 0), 0);
     if (entry.mood) moodCount[entry.mood] = (moodCount[entry.mood] || 0) + 1;
   }
 
@@ -987,130 +783,71 @@ function updateSidebar() {
   const maxMood = Math.max(1, ...Object.values(moodCount));
   const moodOrder = ['😊 開心','😌 平靜','😴 疲憊','😟 焦慮','😢 難過','🌟 充實'];
   document.getElementById('mood-bars').innerHTML = moodOrder.map(m => {
-    const count = moodCount[m] || 0;
-    const pct = Math.round((count / maxMood) * 100);
+    const c = moodCount[m] || 0; const pct = Math.round((c / maxMood) * 100);
     return `<div class="mood-bar-row">
       <div class="mood-bar-label">${m.split(' ')[0]}</div>
       <div class="mood-bar-track"><div class="mood-bar-fill" style="width:${pct}%"></div></div>
-      <div class="mood-bar-count">${count}</div>
+      <div class="mood-bar-count">${c}</div>
     </div>`;
   }).join('');
 
-  renderWeightChart(daysLabels, weightData);
+  renderWeightChart(labels, weights);
 }
 
 function renderWeightChart(labels, data) {
-  const canvasEl = document.getElementById('weightChart');
-  if (!canvasEl) return;
-  const ctx = canvasEl.getContext('2d');
-  if (myWeightChart) {
-    myWeightChart.data.labels = labels;
-    myWeightChart.data.datasets[0].data = data;
-    myWeightChart.update();
-    return;
-  }
-
-  myWeightChart = new Chart(ctx, {
+  const canvas = document.getElementById('weightChart'); if (!canvas) return;
+  if (myWeightChart) { myWeightChart.data.labels = labels; myWeightChart.data.datasets[0].data = data; myWeightChart.update(); return; }
+  myWeightChart = new Chart(canvas.getContext('2d'), {
     type: 'line',
     data: {
       labels: labels,
-      datasets: [{
-        label: '體重 (kg)',
-        data: data,
-        borderColor: '#8B6F47',
-        backgroundColor: 'rgba(139, 111, 71, 0.05)',
-        borderWidth: 2,
-        pointBackgroundColor: '#8B6F47',
-        pointRadius: 3,
-        pointHoverRadius: 5,
-        tension: 0.2,
-        spanGaps: true
-      }]
+      datasets: [{ label: '體重', data: data, borderColor: '#8B6F47', backgroundColor: 'rgba(139,111,71,0.05)', borderWidth: 2, spanGaps: true }]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: function(context) { return ` 體重: ${context.raw} kg`; }
-          }
-        }
-      },
+      responsive: true, maintainAspectRatio: true,
+      plugins: { legend: { display: false } },
       scales: {
-        x: {
-          grid: { display: false },
-          ticks: { font: { size: 9 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 6 }
-        },
-        y: {
-          grid: { color: 'rgba(139, 111, 71, 0.08)' },
-          ticks: { font: { size: 9 } }
-        }
+        x: { ticks: { font: { size: 9 }, autoSkip: true, maxTicksLimit: 6 } },
+        y: { ticks: { font: { size: 9 } } }
       }
     }
   });
 }
 
-function prevMonth() {
-  viewMonth--;
-  if (viewMonth < 0) { viewMonth = 11; viewYear--; }
-  renderCalendar();
-}
-function nextMonth() {
-  viewMonth++;
-  if (viewMonth > 11) { viewMonth = 0; viewYear++; }
-  renderCalendar();
-}
-function goToday() {
-  const { y, m } = today();
-  viewYear = y; viewMonth = m;
-  renderCalendar();
-}
-
-function toggleApiKey() {
-  const inp = document.getElementById('api-key');
-  inp.type = inp.type === 'password' ? 'text' : 'password';
-}
-
-function getApiKey() { return document.getElementById('api-key').value.trim(); }
+function prevMonth() { viewMonth--; if (viewMonth < 0) { viewMonth = 11; viewYear--; } renderCalendar(); }
+// 修正 nextMonth
+function nextMonth() { viewMonth++; if (viewMonth > 11) { viewMonth = 0; viewYear++; } renderCalendar(); }
+function goToday() { const { y, m } = today(); viewYear = y; viewMonth = m; renderCalendar(); }
 
 // ── Panel ──
 function openPanel(y, mo, d) {
-  selectedDate = { y, mo, d };
-  const store = loadStore();
-  const key = dateKey(y, mo, d);
-  const entry = store[key] || {};
-
+  selectedDate = { y, mo, d }; const store = loadStore(); const key = dateKey(y, mo, d); const entry = store[key] || {};
   panelMealData = {};
   MEALS_DEF.forEach(m => {
-    panelMealData[m.id] = entry.meals?.[m.id] ? { ...entry.meals[m.id] } : null;
+    if (entry.meals?.[m.id]) {
+      panelMealData[m.id] = { 
+        imageData: entry.meals[m.id].imageData || null,
+        isTextOnly: !!entry.meals[m.id].isTextOnly,
+        nutrition: entry.meals[m.id].nutrition || null,
+        correctionText: entry.meals[m.id].correctionText || ''
+      };
+    } else {
+      panelMealData[m.id] = null;
+    }
   });
-  panelMood = entry.mood || '';
-  panelNote = entry.note || '';
-
+  panelMood = entry.mood || ''; panelNote = entry.note || '';
+  
   const months = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
   document.getElementById('panel-date').textContent = `${y} 年 ${months[mo]} ${d} 日`;
   document.getElementById('note-area').value = panelNote;
   document.getElementById('weight-input').value = entry.weight || '';
 
-  document.querySelectorAll('.mood-opt').forEach(b => {
-    b.classList.toggle('active', b.dataset.mood === panelMood);
-  });
-
-  renderMealsArea();
-  updateTotals();
+  document.querySelectorAll('.mood-opt').forEach(b => b.classList.toggle('active', b.dataset.mood === panelMood));
+  renderMealsArea(); updateTotals();
   document.getElementById('entry-overlay').classList.add('open');
 }
 
-function closePanel() {
-  document.getElementById('entry-overlay').classList.remove('open');
-  selectedDate = null;
-}
-
-document.getElementById('entry-overlay').addEventListener('click', function(e) {
-  if (e.target === this) closePanel();
-});
+function closePanel() { document.getElementById('entry-overlay').classList.remove('open'); selectedDate = null; }
 
 document.getElementById('mood-picker').addEventListener('click', e => {
   const btn = e.target.closest('.mood-opt'); if (!btn) return;
@@ -1121,15 +858,10 @@ document.getElementById('mood-picker').addEventListener('click', e => {
 function renderMealsArea() {
   const area = document.getElementById('meals-area');
   area.innerHTML = MEALS_DEF.map(meal => {
-    const data = panelMealData[meal.id];
-    let content = '';
-
+    const data = panelMealData[meal.id]; let content = '';
     if (data && (data.imageData || data.isTextOnly)) {
       if (data.imageData) {
-        content += `<div class="photo-preview">
-          <img class="preview-img" src="${data.imageData}" alt="${meal.label}">
-          <button class="remove-photo" onclick="removePhoto('${meal.id}')">✕</button>
-        </div>`;
+        content += `<div class="photo-preview"><img class="preview-img" src="${data.imageData}"><button class="remove-photo" onclick="removePhoto('${meal.id}')">✕</button></div>`;
       } else {
         content += `<div style="font-size:11px; color:var(--green); font-weight:500; margin-bottom:4px;">✍️ 純文字紀錄模式 (<span style="cursor:pointer; text-decoration:underline;" onclick="removePhoto('${meal.id}')">取消變更</span>)</div>`;
       }
@@ -1138,70 +870,40 @@ function renderMealsArea() {
         content += `<div class="loading-row"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="loading-text">AI 分析中…</div></div>`;
       } else {
         const n = data.nutrition || { name: '', calories: 0, protein: 0, carbs: 0, fat: 0, note: '' };
-        if (data.correctionText === undefined) data.correctionText = '';
-
+        const corr = data.correctionText || '';
         content += `<div class="nutrition-box">
-          <input type="text" class="nutrition-name-input" value="${n.name || ''}" placeholder="請輸入食物名稱（如：牛肉麵）" oninput="panelMealData['${meal.id}'].nutrition.name=this.value">
-          
+          <input type="text" class="nutrition-name-input" value="${n.name || ''}" placeholder="請輸入食物名稱（如：牛肉麵）" onchange="panelMealData['${meal.id}'].nutrition.name=this.value; updateTotals();">
           <div class="nutrition-row">
             <div class="nut"><div class="nut-v">${Math.round(n.calories||0)}</div><div class="nut-l">kcal</div></div>
             <div class="nut"><div class="nut-v">${Math.round(n.protein||0)}g</div><div class="nut-l">蛋白質</div></div>
             <div class="nut"><div class="nut-v">${Math.round(n.carbs||0)}g</div><div class="nut-l">碳水</div></div>
             <div class="nut"><div class="nut-v">${Math.round(n.fat||0)}g</div><div class="nut-l">脂肪</div></div>
           </div>
-          ${n.note ? `<div class="nut-note">${n.note}</div>` : ''}
-          
           <div class="correction-wrap">
-            <input type="text" class="correction-input" id="hint-${meal.id}" value="${data.correctionText}" placeholder="補充細節（如：去皮、少油、半糖、加木耳山藥...）" oninput="panelMealData['${meal.id}'].correctionText=this.value">
-            <button class="btn-recalc" onclick="analyzeMeal('${meal.id}')">🔄 讓 AI 估算卡路里</button>
+            <input type="text" class="correction-input" id="hint-${meal.id}" value="${corr}" placeholder="補充細節（如：去皮、半糖、加木耳山藥...）" onchange="panelMealData['${meal.id}'].correctionText=this.value">
+            <button class="btn-recalc" onclick="analyzeMeal('${meal.id}')">🔄 讓 AI 估算</button>
           </div>
         </div>`;
       }
     } else {
-      content += `<div class="upload-zone">
-        <input type="file" accept="image/*" onchange="handleUpload(event,'${meal.id}')">
-        <p>📷 點擊上傳 ${meal.label} 照片</p>
-      </div>
+      content += `<div class="upload-zone"><input type="file" accept="image/*" onchange="handleUpload(event,'${meal.id}')"><p>📷 點擊上傳 ${meal.label} 照片</p></div>
       <button class="text-only-btn" onclick="createTextOnlyMeal('${meal.id}')">✍️ 忘記拍照？直接文字紀錄食物</button>`;
     }
-
-    return `<div class="meal-item">
-      <div class="meal-item-label">${meal.emoji} ${meal.label}</div>
-      ${content}
-    </div>`;
+    return `<div class="meal-item"><div class="meal-item-label">${meal.emoji} ${meal.label}</div>${content}</div>`;
   }).join('');
 }
 
 function handleUpload(e, mealId) {
   const file = e.target.files[0]; if (!file) return;
   const reader = new FileReader();
-  
   reader.onload = ev => {
     const img = new Image();
     img.onload = () => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      const MAX_WIDTH = 500;
-      let width = img.width;
-      let height = img.height;
-      
-      if (width > MAX_WIDTH) {
-        height = Math.round((height * MAX_WIDTH) / width);
-        width = MAX_WIDTH;
-      }
-      
-      canvas.width = width;
-      canvas.height = height;
-      ctx.drawImage(img, 0, 0, width, height);
-      
-      const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.5);
-      panelMealData[mealId] = { 
-        imageData: compressedDataUrl, 
-        isTextOnly: false, 
-        analyzing: false, 
-        nutrition: { name: '', calories: 0, protein: 0, carbs: 0, fat: 0, note: '' }, 
-        correctionText: '' 
-      };
+      const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d');
+      const MAX_WIDTH = 500; let width = img.width; let height = img.height;
+      if (width > MAX_WIDTH) { height = Math.round((height * MAX_WIDTH) / width); width = MAX_WIDTH; }
+      canvas.width = width; canvas.height = height; ctx.drawImage(img, 0, 0, width, height);
+      panelMealData[mealId] = { imageData: canvas.toDataURL('image/jpeg', 0.5), isTextOnly: false, analyzing: false, nutrition: { name: '', calories: 0, protein: 0, carbs: 0, fat: 0, note: '' }, correctionText: '' };
       renderMealsArea();
     };
     img.src = ev.target.result;
@@ -1210,65 +912,40 @@ function handleUpload(e, mealId) {
 }
 
 function createTextOnlyMeal(mealId) {
-  panelMealData[mealId] = {
-    imageData: null,
-    isTextOnly: true,
-    analyzing: false,
-    nutrition: { name: '', calories: 0, protein: 0, carbs: 0, fat: 0, note: '' },
-    correctionText: ''
-  };
+  panelMealData[mealId] = { imageData: null, isTextOnly: true, analyzing: false, nutrition: { name: '', calories: 0, protein: 0, carbs: 0, fat: 0, note: '' }, correctionText: '' };
   renderMealsArea();
 }
 
-function removePhoto(mealId) {
-  panelMealData[mealId] = null;
-  renderMealsArea();
-  updateTotals();
-}
+function removePhoto(mealId) { panelMealData[mealId] = null; renderMealsArea(); updateTotals(); }
 
 async function analyzeMeal(mealId) {
-  const targetMeal = panelMealData[mealId]; 
-  if (!targetMeal) return;
-  
-  const key = getApiKey();
-  if (!key) { showToast('請先輸入 API Key'); return; }
+  const target = panelMealData[mealId]; if (!target) return;
+  const key = getApiKey(); if (!key) { showToast('請先輸入 API Key'); return; }
 
-  const foodName = targetMeal.nutrition?.name ? targetMeal.nutrition.name.trim() : '';
-  const specificHint = targetMeal.correctionText ? targetMeal.correctionText.trim() : '';
+  const foodName = target.nutrition?.name ? target.nutrition.name.trim() : '';
+  const specificHint = target.correctionText ? target.correctionText.trim() : '';
 
-  if (!foodName && targetMeal.isTextOnly) {
-    showToast('請先輸入食物名稱再讓 AI 估算喔！');
-    return;
-  }
+  if (target.isTextOnly && !foodName) { showToast('請先輸入食物名稱喔！'); return; }
 
-  targetMeal.analyzing = true;
-  renderMealsArea();
+  target.analyzing = true; renderMealsArea();
+  let partsArray = []; let systemPrompt = '';
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`;
-  
-  let partsArray = [];
-  let systemPrompt = '';
-
-  if (targetMeal.isTextOnly) {
-    systemPrompt = `請精確估算以下文字所描述食物的熱量與營養成分。\n食物名稱："${foodName}"`;
-    if (specificHint) systemPrompt += `\n額外細節描述與更正："${specificHint}"`;
-    systemPrompt += `\n請根據一般外食份量或家常料理做合理推估。`;
+  if (target.isTextOnly) {
+    systemPrompt = `請精確估算以下文字描述食物的熱量與營養成分。\n食物名稱："${foodName}"`;
+    if (specificHint) systemPrompt += `\n細節描述："${specificHint}"`;
     partsArray.push({ text: systemPrompt });
   } else {
-    systemPrompt = '請精確分析這張食物照片中的營養成分。請依圖片中的實際份量做合理估算。';
+    systemPrompt = '請精確分析這張食物照片中的營養成分。';
     if (foodName) systemPrompt += `\n已知食物名稱："${foodName}"`;
-    if (specificHint) {
-      systemPrompt += `\n【使用者補充的更正食材或份量資訊】：\n"${specificHint}"\n請務必結合這段文字，重新計算出卡路里與營養素！`;
-    }
+    if (specificHint) systemPrompt += `\n【更正資訊】："${specificHint}"`;
     partsArray.push({ text: systemPrompt });
-    
-    const base64 = targetMeal.imageData.split(',')[1];
-    const mediaType = targetMeal.imageData.split(';')[0].split(':')[1] || 'image/jpeg';
+    const base64 = target.imageData.split(',')[1];
+    const mediaType = target.imageData.split(';')[0].split(':')[1] || 'image/jpeg';
     partsArray.push({ inlineData: { mimeType: mediaType, data: base64 } });
   }
 
   try {
-    const resp = await fetch(url, {
+    const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -1278,122 +955,40 @@ async function analyzeMeal(mealId) {
           responseSchema: {
             type: 'OBJECT',
             properties: {
-              name: { type: 'STRING', description: '食物名稱（中文簡短）' },
-              calories: { type: 'INTEGER', description: '卡路里估算，單位 kcal' },
-              protein: { type: 'INTEGER', description: '蛋白質估算，單位公克' },
-              carbs: { type: 'INTEGER', description: '碳水化合物估算，單位公克' },
-              fat: { type: 'INTEGER', description: '脂肪估算，單位公克' },
-              note: { type: 'STRING', description: '簡短備註不超過30字' }
+              name: { type: 'STRING' }, calories: { type: 'INTEGER' }, protein: { type: 'INTEGER' }, carbs: { type: 'INTEGER' }, fat: { type: 'INTEGER' }, note: { type: 'STRING' }
             },
             required: ['name', 'calories', 'protein', 'carbs', 'fat', 'note']
           }
         }
       })
     });
-
-    if (!resp.ok) {
-      const errJson = await resp.json().catch(() => ({}));
-      throw new Error(errJson.error?.message || `HTTP 錯誤代碼：${resp.status}`);
-    }
-
+    if (!resp.ok) throw new Error('API 回傳錯誤');
     const json = await resp.json();
-    
-    if (json.candidates?.[0]?.finishReason === 'SAFETY') {
-      throw new Error('內容未通過 AI 安全審查，請更換內容再試。');
-    }
-
     const textResult = json.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!textResult) throw new Error('AI 未能返回有效的分析內容。');
-
-    const nutrition = JSON.parse(textResult.trim());
-    
-    if (!nutrition.name) nutrition.name = foodName || '未命名食物';
-
-    panelMealData[mealId] = { 
-      imageData: targetMeal.imageData,
-      isTextOnly: targetMeal.isTextOnly,
-      analyzing: false, 
-      nutrition: nutrition,
-      correctionText: specificHint
-    };
-    showToast('估算完成！');
+    if (!textResult) throw new Error('AI 未能返回內容');
+    target.nutrition = JSON.parse(textResult.trim());
+    if (!target.nutrition.name && foodName) target.nutrition.name = foodName;
+    target.analyzing = false; showToast('估算完成！');
   } catch(err) {
-    console.error("Gemini 分析發生錯誤:", err);
-    panelMealData[mealId] = { 
-      imageData: targetMeal.imageData,
-      isTextOnly: targetMeal.isTextOnly,
-      analyzing: false, 
-      nutrition: { 
-        name: foodName || '分析失敗', 
-        calories: 0, 
-        protein: 0, 
-        carbs: 0, 
-        fat: 0, 
-        note: err.message?.slice(0,40) || '請重試' 
-      },
-      correctionText: specificHint
-    };
-    showToast('分析失敗：' + (err.message?.slice(0, 20) || '請重試'));
+    console.error(err); target.analyzing = false;
+    target.nutrition = { name: foodName || '分析失敗', calories: 0, protein: 0, carbs: 0, fat: 0, note: '請重試' };
+    showToast('分析失敗');
   }
-  renderMealsArea();
-  updateTotals();
-}
-
-function updateTotals() {
-  let cal=0, prot=0, carb=0, fat=0;
-  MEALS_DEF.forEach(m => {
-    const n = panelMealData[m.id]?.nutrition;
-    if (n) { cal+=n.calories||0; prot+=n.protein||0; carb+=n.carbs||0; fat+=n.fat||0; }
-  });
-  document.getElementById('t-cal').textContent = Math.round(cal);
-  document.getElementById('t-prot').textContent = Math.round(prot)+'g';
-  document.getElementById('t-carb').textContent = Math.round(carb)+'g';
-  document.getElementById('t-fat').textContent = Math.round(fat)+'g';
+  renderMealsArea(); updateTotals();
 }
 
 function saveEntry() {
-  if (!selectedDate) return;
-  const { y, mo, d } = selectedDate;
-  const store = loadStore();
-  const key = dateKey(y, mo, d);
-
+  if (!selectedDate) return; const store = loadStore(); const key = dateKey(selectedDate.y, selectedDate.mo, selectedDate.d);
   const saveMeals = {};
-  MEALS_DEF.forEach(m => {
-    if (panelMealData[m.id]) {
-      saveMeals[m.id] = {
-        imageData: panelMealData[m.id].imageData,
-        isTextOnly: panelMealData[m.id].isTextOnly,
-        nutrition: panelMealData[m.id].nutrition,
-        correctionText: panelMealData[m.id].correctionText
-      };
-    }
-  });
-
-  const weightVal = document.getElementById('weight-input').value.trim();
-
-  store[key] = {
-    meals: saveMeals,
-    mood: panelMood,
-    note: document.getElementById('note-area').value,
-    weight: weightVal ? Number(weightVal) : null
-  };
-
-  try {
-    saveStore(store);
-    closePanel();
-    renderCalendar();
-    showToast('已儲存！✓');
-  } catch(e) {
-    console.error("儲存失敗", e);
-    alert('儲存失敗！空間已耗盡。請點擊左側邊欄的「清除過期爆滿快取」按鈕重設空間後再試！');
-  }
+  MEALS_DEF.forEach(m => { if (panelMealData[m.id]) saveMeals[m.id] = { ...panelMealData[m.id] }; });
+  const w = document.getElementById('weight-input').value.trim();
+  store[key] = { meals: saveMeals, mood: panelMood, note: document.getElementById('note-area').value, weight: w ? Number(w) : null };
+  try { saveStore(store); closePanel(); renderCalendar(); showToast('已儲存！✓'); } 
+  catch(e) { alert('儲存失敗，空間已滿，請清除部分舊照片。'); }
 }
 
 // ── Init ──
-const { y, m } = today();
-viewYear = y; viewMonth = m;
-loadApiKey();
-renderCalendar();
+const { y, m } = today(); viewYear = y; viewMonth = m; loadApiKey(); renderCalendar();
 </script>
 </body>
 </html>
