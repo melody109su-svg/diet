@@ -66,6 +66,7 @@ body {
   background: rgba(28,26,24,0.3);
   z-index: 85;
 }
+.sidebar-overlay.open { display: block; }
 
 /* ── Sidebar Header ── */
 .sidebar-header {
@@ -286,6 +287,11 @@ body {
 .day-cell.today { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-pale); }
 .day-cell.has-entry { background: var(--warm-white); }
 .day-cell.selected { border-color: var(--accent); background: var(--accent-pale); }
+
+/* 【關鍵修復】確保格子內的小標籤與圖片不會攔截手指點擊，防範手機端點不到日期的問題 */
+.day-num, .day-mood, .day-photo, .day-cal-badge, .day-weight-badge {
+  pointer-events: none; 
+}
 
 .day-num {
   font-size: 13px;
@@ -815,36 +821,53 @@ function renderWeightChart(labels, data) {
 }
 
 function prevMonth() { viewMonth--; if (viewMonth < 0) { viewMonth = 11; viewYear--; } renderCalendar(); }
-// 修正 nextMonth
 function nextMonth() { viewMonth++; if (viewMonth > 11) { viewMonth = 0; viewYear++; } renderCalendar(); }
 function goToday() { const { y, m } = today(); viewYear = y; viewMonth = m; renderCalendar(); }
 
-// ── Panel ──
+// ── Panel 開啟核心（全面加強舊資料的容錯率） ──
 function openPanel(y, mo, d) {
-  selectedDate = { y, mo, d }; const store = loadStore(); const key = dateKey(y, mo, d); const entry = store[key] || {};
-  panelMealData = {};
-  MEALS_DEF.forEach(m => {
-    if (entry.meals?.[m.id]) {
-      panelMealData[m.id] = { 
-        imageData: entry.meals[m.id].imageData || null,
-        isTextOnly: !!entry.meals[m.id].isTextOnly,
-        nutrition: entry.meals[m.id].nutrition || null,
-        correctionText: entry.meals[m.id].correctionText || ''
-      };
-    } else {
-      panelMealData[m.id] = null;
-    }
-  });
-  panelMood = entry.mood || ''; panelNote = entry.note || '';
-  
-  const months = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
-  document.getElementById('panel-date').textContent = `${y} 年 ${months[mo]} ${d} 日`;
-  document.getElementById('note-area').value = panelNote;
-  document.getElementById('weight-input').value = entry.weight || '';
+  try {
+    selectedDate = { y, mo, d }; 
+    const store = loadStore(); 
+    const key = dateKey(y, mo, d); 
+    const entry = store[key] || {};
+    
+    panelMealData = {};
+    MEALS_DEF.forEach(m => {
+      // 安全鏈：防止舊格式 entry.meals 沒有這個 id 或結構不對而引發崩潰
+      if (entry.meals && entry.meals[m.id]) {
+        panelMealData[m.id] = { 
+          imageData: entry.meals[m.id].imageData || null,
+          isTextOnly: !!entry.meals[m.id].isTextOnly,
+          nutrition: entry.meals[m.id].nutrition || { name: '', calories: 0, protein: 0, carbs: 0, fat: 0, note: '' },
+          correctionText: entry.meals[m.id].correctionText || ''
+        };
+      } else {
+        panelMealData[m.id] = null;
+      }
+    });
 
-  document.querySelectorAll('.mood-opt').forEach(b => b.classList.toggle('active', b.dataset.mood === panelMood));
-  renderMealsArea(); updateTotals();
-  document.getElementById('entry-overlay').classList.add('open');
+    panelMood = entry.mood || ''; 
+    panelNote = entry.note || '';
+    
+    const months = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+    document.getElementById('panel-date').textContent = `${y} 年 ${months[mo]} ${d} 日`;
+    document.getElementById('note-area').value = panelNote;
+    document.getElementById('weight-input').value = entry.weight || '';
+
+    document.querySelectorAll('.mood-opt').forEach(b => b.classList.toggle('active', b.dataset.mood === panelMood));
+    
+    renderMealsArea(); 
+    updateTotals();
+    document.getElementById('entry-overlay').classList.add('open');
+  } catch (err) {
+    console.error("開啟面板出錯，正在重置當天格式:", err);
+    // 終極防禦：若資料損毀，直接給予乾淨的空白面板，確保永遠打得開
+    panelMealData = { breakfast: null, lunch: null, dinner: null, snack: null };
+    panelMood = ''; panelNote = '';
+    renderMealsArea(); updateTotals();
+    document.getElementById('entry-overlay').classList.add('open');
+  }
 }
 
 function closePanel() { document.getElementById('entry-overlay').classList.remove('open'); selectedDate = null; }
@@ -871,8 +894,10 @@ function renderMealsArea() {
       } else {
         const n = data.nutrition || { name: '', calories: 0, protein: 0, carbs: 0, fat: 0, note: '' };
         const corr = data.correctionText || '';
+        
+        // 使用 onchange：打字時不重繪，失焦或打完字才存入變數，兼顧流暢度與即時性
         content += `<div class="nutrition-box">
-          <input type="text" class="nutrition-name-input" value="${n.name || ''}" placeholder="請輸入食物名稱（如：牛肉麵）" onchange="panelMealData['${meal.id}'].nutrition.name=this.value; updateTotals();">
+          <input type="text" class="nutrition-name-input" value="${n.name || ''}" placeholder="請輸入食物名稱（如：牛肉麵）" onchange="panelMealData['${meal.id}'].nutrition.name=this.value;">
           <div class="nutrition-row">
             <div class="nut"><div class="nut-v">${Math.round(n.calories||0)}</div><div class="nut-l">kcal</div></div>
             <div class="nut"><div class="nut-v">${Math.round(n.protein||0)}g</div><div class="nut-l">蛋白質</div></div>
