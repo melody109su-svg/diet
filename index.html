@@ -38,7 +38,7 @@ body {
 }
 
 /* ── Layout ── */
-.app { display: flex; height: 100vh; overflow: hidden; }
+.app { display: flex; height: 100vh; overflow: hidden; position: relative; }
 
 .sidebar {
   width: 280px;
@@ -48,6 +48,8 @@ body {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  z-index: 90;
+  transition: transform 0.3s ease;
 }
 
 .main {
@@ -56,10 +58,35 @@ body {
   background: var(--cream);
 }
 
-/* ── Sidebar ── */
+/* 【新增】手機版側欄遮罩 */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(28,26,24,0.3);
+  z-index: 85;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* ── Sidebar Header ── */
 .sidebar-header {
   padding: 28px 24px 20px;
   border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+/* 【新增】側欄內部的關閉按鈕（僅在手機版顯示） */
+.sidebar-close-btn {
+  display: none;
+  position: absolute;
+  top: 24px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--ink-muted);
 }
 
 .app-title {
@@ -173,11 +200,29 @@ body {
   z-index: 10;
 }
 
+/* 【新增】漢堡選單按鈕樣式 */
+.menu-toggle-btn {
+  display: none;
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--ink-soft);
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  transition: all 0.15s;
+}
+.menu-toggle-btn:hover { background: var(--accent-pale); color: var(--accent); }
+
 .month-title {
   font-family: 'Noto Serif TC', serif;
   font-size: 26px;
   font-weight: 500;
   color: var(--ink);
+  flex: 1;
 }
 
 .nav-btns { display: flex; gap: 8px; }
@@ -228,7 +273,6 @@ body {
   padding: 4px 32px 32px;
 }
 
-/* 【已修復】強制給予安全最低高度限制，防範 CSS 排版塌陷 Bug */
 .day-cell {
   aspect-ratio: 1;
   min-height: 100px;
@@ -619,14 +663,35 @@ body {
 }
 .toast.show { opacity: 1; }
 
+/* ── 【重要核心】響應式手機版滑出式側欄 CSS ── */
 @media (max-width: 768px) {
-  .app { flex-direction: column; }
-  .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
-  .main { height: auto; }
+  .menu-toggle-btn { display: flex; } /* 秀出漢堡按鈕 */
+  .sidebar-close-btn { display: block; } /* 秀出側欄內關閉按鈕 */
+
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 280px;
+    transform: translateX(-100%); /* 預設完全藏在螢幕左邊外面 */
+    box-shadow: 4px 0 24px rgba(28,26,24,0.15);
+  }
+
+  /* 當加入 .open 樣式時，側欄絲滑滑入畫面 */
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* 側欄滑出時，後方的日曆背景會變暗 */
+  .sidebar-overlay.open {
+    display: block;
+    opacity: 1;
+  }
+
+  /* 讓日曆回歸手機版滿版狀態，格子不再擠壓 */
   .calendar-grid { padding: 4px 12px 24px; }
   .weekday-row { padding: 12px 12px 0; }
   .calendar-header { padding: 20px 12px 16px; }
-  .day-cell { min-height: 85px; } /* 手機版安全高度 */
+  .day-cell { min-height: 85px; } 
   .day-cell.empty { min-height: 85px; }
 }
 </style>
@@ -634,10 +699,13 @@ body {
 <body>
 
 <div class="app">
-  <aside class="sidebar">
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar(false)"></div>
+
+  <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="app-title">我的生活日記</div>
       <div class="app-subtitle">MY LIFE JOURNAL</div>
+      <button class="sidebar-close-btn" onclick="toggleSidebar(false)">✕</button>
     </div>
 
     <div class="api-section">
@@ -678,6 +746,7 @@ body {
 
   <main class="main">
     <div class="calendar-header">
+      <button class="menu-toggle-btn" onclick="toggleSidebar(true)">☰選單</button>
       <div class="month-title" id="month-title"></div>
       <div style="display:flex;gap:8px;align-items:center">
         <button class="today-btn" onclick="goToday()">今天</button>
@@ -799,6 +868,19 @@ function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// 【新增】控制手機版側欄開關的 JavaScript 函數
+function toggleSidebar(open) {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  if (open) {
+    sidebar.classList.add('open');
+    overlay.classList.add('open');
+  } else {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+  }
 }
 
 // ── Calendar ──
@@ -985,6 +1067,13 @@ function goToday() {
   viewYear = y; viewMonth = m;
   renderCalendar();
 }
+
+function toggleApiKey() {
+  const inp = document.getElementById('api-key');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+function getApiKey() { return document.getElementById('api-key').value.trim(); }
 
 // ── Panel ──
 function openPanel(y, mo, d) {
